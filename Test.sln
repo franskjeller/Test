@@ -8,7 +8,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", 
 		{05A2D8A5-860E-4AAE-BA8A-AEF7920A031D} = {05A2D8A5-860E-4AAE-BA8A-AEF7920A031D}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Data", "Test.Data\Test.Data.csproj", "{05A2D8A5-860E-4AAE-BA8A-AEF7920A031D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test.Data", "Test.Data\Test.Data.csproj", "{05A2D8A5-860E-4AAE-BA8A-AEF7920A031D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Tests", "Test.Tests\Test.Tests.csproj", "{734301AE-C74B-4B8A-84FD-36ECA2B04CB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +26,10 @@ Global
 		{05A2D8A5-860E-4AAE-BA8A-AEF7920A031D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05A2D8A5-860E-4AAE-BA8A-AEF7920A031D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05A2D8A5-860E-4AAE-BA8A-AEF7920A031D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{734301AE-C74B-4B8A-84FD-36ECA2B04CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{734301AE-C74B-4B8A-84FD-36ECA2B04CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{734301AE-C74B-4B8A-84FD-36ECA2B04CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{734301AE-C74B-4B8A-84FD-36ECA2B04CB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -16,7 +16,7 @@ namespace Test.Controllers
         [HttpGet]
         public string Get()
         {
-            return "Hello World - This is version 2!";
+            return "Hello World!";
         }
     }
 }

@@ -6,12 +6,21 @@ USER app
 WORKDIR /app
 EXPOSE 8080
 
-# Here we build our application and copy files to container under src-directory
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
+# Here we run tests
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS test
+
 # Copy everything into src with the same structure
+WORKDIR /src
 COPY . ./
+
+WORKDIR "/src/Test.Tests"
+RUN dotnet restore "./Test.Tests.csproj"
+RUN dotnet test "./Test.Tests.csproj"
+
+
+# Here we build our application and copy files to container under src-directory
+FROM test AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR "/src/Test"
 RUN dotnet restore "./Test.csproj"
 RUN dotnet build "./Test.csproj" -c $BUILD_CONFIGURATION -o /app/build
