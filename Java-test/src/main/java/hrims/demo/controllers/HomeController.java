@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import hrims.demo.support.Settings;
@@ -20,18 +20,19 @@ public class HomeController {
     private Settings _settings;
 
     @GetMapping()
-	public String Info() {
+	public String info() {
         var content = "<html><body><h1>" + _settings.ApplicationName + "</h1><p>" + _settings.ApplicationName + " is Running. Use '/confirmsetup' address to test setup</p></body></html>";
 
 		return content;
 	}
 
     @GetMapping("confirmsetup")
-	public String ConfirmSetup() throws Exception {
-		ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT); // Enable pretty print
+	public String confirmSetup() throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT); // Enable pretty print
+        mapper.setPropertyNamingStrategy(PropertyNamingStrategies.LOWER_CAMEL_CASE);
         
-		var settingsJson = objectMapper.writeValueAsString(_settings);
+		var settingsJson = mapper.writeValueAsString(_settings);
 
         return settingsJson;
 	}
