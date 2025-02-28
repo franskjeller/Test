@@ -4,11 +4,10 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.*;
+import lombok.Data;
 
 @Component
-@Getter
-@Setter
+@Data
 public class Person {
     @JsonProperty("nationalId")
     public String NationalId;

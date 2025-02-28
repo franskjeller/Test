@@ -5,12 +5,11 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.*;
+import lombok.Data;
 
 @ConfigurationProperties(prefix = "settings")
 @Component
-@Getter
-@Setter
+@Data
 public class Settings {
     @JsonProperty("applicationName")
     public String ApplicationName;

@@ -24,7 +24,7 @@ public class PeopleService {
 
     public Person getPersonByNid(String nid) throws IOException {
         var people = loadPeople();
-        
+
         return people.stream()
             .filter(p -> p.NationalId.equals(nid))
             .findFirst().orElse(null);
@@ -40,11 +40,11 @@ public class PeopleService {
         String result = "";
         if (matchingPerson == null) {
             people.add(person);
-            result = "Person with national id " + person.NationalId + " was added to cache. Currently " + people.size() + " people.";
+            result = "Person with national id " + person.NationalId + " was added to cache. Currently contains " + people.size() + " people.";
         } else {
             matchingPerson.Name = person.Name;
             matchingPerson.Email = person.Email;
-            result = "Person with national id " + person.NationalId + " was updated in cache. Currently " + people.size() + " people.";
+            result = "Person with national id " + person.NationalId + " was updated in cache. Currently contains " + people.size() + " people.";
         }
 
         savePeople(people);
@@ -52,20 +52,20 @@ public class PeopleService {
         return result;
     }
 
-    private List<Person> loadPeople() throws IOException {
+    public List<Person> loadPeople() throws IOException {
         var file = new File(_settings.PeopleCache);
         if (!file.exists() || !file.isFile()) {
-            return new ArrayList<Person>();
+            return new ArrayList<>();
         }
 
         var mapper = new ObjectMapper();
         return mapper.readValue(file, new TypeReference<List<Person>>() {}); 
     }
 
-    private void savePeople(List<Person> people) throws IOException {
+    public void savePeople(List<Person> people) throws IOException {
 
         if (people == null) {
-            people = new ArrayList<Person>();
+            people = new ArrayList<>();
         }
 
         var mapper = new ObjectMapper();
