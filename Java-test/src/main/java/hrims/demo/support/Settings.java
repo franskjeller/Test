@@ -1,19 +1,16 @@
 package hrims.demo.support;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+// import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
-@ConfigurationProperties(prefix = "settings")
+// @ConfigurationProperties(prefix = "settings")
 @Component
 @Data
 public class Settings {
-    @JsonProperty("applicationName")
-    public String ApplicationName;
-
     @JsonProperty("peopleCache")
     public String PeopleCache;
 

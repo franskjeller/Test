@@ -12,18 +12,19 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.mockito.ArgumentCaptor;
 import static org.mockito.ArgumentMatchers.anyList;
 import org.mockito.InjectMocks;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.verify;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import hrims.demo.data.Person;
+import hrims.demo.services.CacheReaderService;
 import hrims.demo.services.PeopleService;
 
-@SpringBootTest
-@TestInstance(Lifecycle.PER_CLASS)
 class PeopleServiceTests {
+
+	@Mock
+	private CacheReaderService _cacheReader;
 
 	@InjectMocks
     private PeopleService _service;
@@ -32,6 +33,8 @@ class PeopleServiceTests {
 
 	@BeforeEach
     public void setUp() {
+		MockitoAnnotations.openMocks(this);
+		
 		var person1 = new Person();
 		person1.Name = "Name1";
 		person1.Email = "Email1";
@@ -49,14 +52,12 @@ class PeopleServiceTests {
 		_testPeople.add(person1);
 		_testPeople.add(person2);
 		_testPeople.add(person3);
-
-        _service = spy(new PeopleService()); //Keep some implementations for some methods and mock others
     }
 
 	@Test
 	void getPersonByNidReturnPersonOnMatch() throws IOException {
 
-		doReturn(_testPeople).when(_service).loadPeople();
+		doReturn(_testPeople).when(_cacheReader).loadPeople();
 
 		var match = _service.getPersonByNid("Nid1");
 		
@@ -69,7 +70,7 @@ class PeopleServiceTests {
 	@Test
 	void getPersonByNidReturnsNullIfNoMatch() throws IOException {
 		
-		doReturn(_testPeople).when(_service).loadPeople();
+		doReturn(_testPeople).when(_cacheReader).loadPeople();
 
 		var match = _service.getPersonByNid("DoesNotExist");
 		
@@ -79,8 +80,8 @@ class PeopleServiceTests {
 	@Test
 	void addOrUpdatePersonUpdatesPersonIfAlreadyExists() throws IOException {
 
-		doReturn(_testPeople).when(_service).loadPeople();
-		doNothing().when(_service).savePeople(anyList());
+		doReturn(_testPeople).when(_cacheReader).loadPeople();
+		doNothing().when(_cacheReader).savePeople(anyList());
 
 		var update = new Person();
 		update.Name = "New Name";
@@ -91,7 +92,7 @@ class PeopleServiceTests {
 
 		// Capture argument passed to the savePeople method
         ArgumentCaptor<List<Person>> captor = ArgumentCaptor.forClass(List.class);
-		verify(_service).savePeople(captor.capture());
+		verify(_cacheReader).savePeople(captor.capture());
         List<Person> savedPeople = captor.getValue();
 
 		assertThat(savedPeople).isNotNull();
@@ -108,8 +109,8 @@ class PeopleServiceTests {
 	@Test
 	void addOrUpdatePersonAddsPersonIfItDoesNotExist() throws IOException {
 		
-		doReturn(_testPeople).when(_service).loadPeople();
-		doNothing().when(_service).savePeople(anyList());
+		doReturn(_testPeople).when(_cacheReader).loadPeople();
+		doNothing().when(_cacheReader).savePeople(anyList());
 
 		var newPerson = new Person();
 		newPerson.Name = "NewName";
@@ -120,7 +121,7 @@ class PeopleServiceTests {
 		
 		// Capture argument passed to the savePeople method
         ArgumentCaptor<List<Person>> captor = ArgumentCaptor.forClass(List.class);
-		verify(_service).savePeople(captor.capture());
+		verify(_cacheReader).savePeople(captor.capture());
         List<Person> savedPeople = captor.getValue();
 
 		assertThat(savedPeople).isNotNull();

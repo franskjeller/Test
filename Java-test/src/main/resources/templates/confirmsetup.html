@@ -1,0 +1,14 @@
+<html>
+    <body>
+        <h1 th:text="${applicationName} + ' - Confirm setup'"></h1>
+        <p style="margin-bottom: 0" th:text="'Running version: ' + ${version}"></p>
+        <p style="margin-top: 0" th:text="'Git commit date: ' + ${commitDate}"></p>
+        
+        <ul th:each="check : ${checks}">
+            <li style="color: red" th:text="${check}"></li>
+        </ul>
+
+        <span>Settings:</span>
+        <pre th:text="${jsonString}"></pre>
+    </body>
+</html>
