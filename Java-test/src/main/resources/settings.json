@@ -1,4 +1,4 @@
 {
     "peopleCache": "E:\\TestFiles\\Demo_Java\\PeopleCache.json",
-    "logFile": "E:\\TestFiles\\Demo_Java\\Log\\Demo.log"
+    "logDirectory": "E:\\TestFiles\\Demo_Java\\Log\\"
 }

@@ -14,6 +14,6 @@ public class Settings {
     @JsonProperty("peopleCache")
     public String PeopleCache;
 
-    @JsonProperty("logFile")
-    public String LogFile;
+    @JsonProperty("logDirectory")
+    public String LogDirectory;
 }
